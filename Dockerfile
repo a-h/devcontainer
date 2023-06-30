@@ -42,14 +42,11 @@ RUN curl ${NIX_INSTALL_SCRIPT} | sh
 # nix manages our $PATH appropriately.
 RUN . .nix-profile/etc/profile.d/nix.sh && nix-channel --update
 
-# Copy our nix expression into the container
+# Copy our nix expression into the container.
 COPY --chown=vscode flake.nix /home/vscode/
 
-# run nix install to install the Flake contents.
+# Install the Flake contents.
 RUN . .nix-profile/etc/profile.d/nix.sh && nix profile install .
 
-COPY <<EOF /home/vscode/.bashrc
-. .nix-profile/etc/profile.d/nix.sh
-EOF
-
-CMD "/bin/bash"
+# Add all the stuff to the path.
+ENV PATH="${PATH}:~/.nix-profile/bin"
