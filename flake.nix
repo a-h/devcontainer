@@ -15,6 +15,7 @@
         paths = with pkgs; [
           astyle # Code formatter for C.
           azure-cli # Azure CLI.
+          azure-storage-azcopy # Azure CLI copy tool.
           bat # Colourized cat.
           cargo # Rust tooling.
           ccls # C LSP Server.
@@ -24,6 +25,7 @@
           docker # Container tooling.
           entr # Execute command when files change.
           fd # Find that respects .gitignore.
+          fuse-overlayfs # Filesystem for rooless podman.
           fzf # Fuzzy search.
           gcc # Compiler.
           git # Source code management tool.
@@ -35,7 +37,6 @@
           gradle # Build tool.
           graphviz # Build SVGs of graphs (maths graphs).
           htop # Fancy version of top.
-          ibm-plex # Font.
           imagemagick # Image processing.
           jdk # Development.
           jq # JSON query at the CLI.
@@ -47,11 +48,11 @@
           maven # Java build tooling.
           minicom # Serial monitor.
           neovim # Better version of Vim.
-          nerdfonts # Fonts with nerd glyphs for terminals.
           ninja # Used by Raspberry Pi Pico SDK, build tool.
           nmap # Port scanner.
           nodejs-18_x # Node LTS version.
           podman # Docker alternative.
+          podman-compose # Alternative to docker-compose.
           powerline # Status line UI fancy.
           python310Packages.python-lsp-server
           python311 # Python 3.11.
@@ -60,14 +61,15 @@
           rust-analyzer # Rust language server.
           rustc # Rust compiler.
           rustfmt # Rust formatter.
+          shadow # Required to run podman containers in podman.
           silver-searcher # Fast grep (ag).
-          source-code-pro # Font.
           sumneko-lua-language-server # LSP for Lua.
           terraform # Infrastructure management language.
           terraform-ls # Terraform Language Server.
           tflint # Terraform linting tool.
           tmux # Terminal multiplexer.
           tree # Tree of file systems.
+          tunctl # Utility for controlling tuntap interfaces. Required to start podman containers with open ports.
           unzip # Unzip files.
           urlscan # Find URLs in your terminal
           wget # curl, but it follows links automatically etc.
@@ -78,3 +80,4 @@
       };
   };
 }
+
