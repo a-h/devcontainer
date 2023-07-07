@@ -7,17 +7,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, xc }: {
-    packages."x86_64-linux".default = let
-      pkgs = nixpkgs.legacyPackages."x86_64-linux";
-      in pkgs.buildEnv {
+  outputs = { self, nixpkgs, xc }: 
+  let
+    pkgs = nixpkgs.legacyPackages."x86_64-linux"; 
+    env = pkgs.buildEnv {
         name = "packages";
         paths = with pkgs; [
           astyle # Code formatter for C.
           azure-cli # Azure CLI.
           azure-storage-azcopy # Azure CLI copy tool.
+          bash # Standard CLI tooling.
           bat # Colourized cat.
           cargo # Rust tooling.
+          coreutils # Standard tools - ls, pwd etc.
           ccls # C LSP Server.
           cmake # C tooling.
           d2 # Text-based diagramming tool.
@@ -78,6 +80,24 @@
           zip # Zip files.
         ];
       };
-  };
+    dockerImage = pkgs.dockerTools.buildImage {
+      name = "devcontainer-nix";
+      tag = "latest";
+      runAsRoot = ''
+        #!${pkgs.runtimeShell}
+        ${pkgs.dockerTools.shadowSetup}
+        groupadd -r -g 1000 vscode
+        useradd -r -g vscode -u 1000 vscode
+      '';
+      copyToRoot = env;
+      config = { Cmd = [ "/bin/bash" ]; };
+      diskSize = 10240;
+      buildVMMemorySize = 2048;
+    };
+  in
+    {
+      packages."x86_64-linux".default = env;
+      packages."x86_64-linux".docker = dockerImage;
+    };
 }
 

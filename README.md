@@ -27,3 +27,15 @@ docker build --progress=plain -t devcontainer:latest .
 ```
 docker run --rm -it devcontainer:latest
 ```
+
+### build-nix
+
+```
+nix build .#docker
+```
+
+### import-nix-docker
+
+```
+docker load < result
+```
