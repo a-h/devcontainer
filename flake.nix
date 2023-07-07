@@ -13,13 +13,17 @@
     env = pkgs.buildEnv {
         name = "packages";
         paths = with pkgs; [
+          # Devcontainer requirements.
+          getent # Used by devcontainers at startup to list users.
+          bash # Standard CLI tooling.
+          coreutils # Standard tools - ls, pwd etc.
+
+          # Tooling.
           astyle # Code formatter for C.
           azure-cli # Azure CLI.
           azure-storage-azcopy # Azure CLI copy tool.
-          bash # Standard CLI tooling.
           bat # Colourized cat.
           cargo # Rust tooling.
-          coreutils # Standard tools - ls, pwd etc.
           ccls # C LSP Server.
           cmake # C tooling.
           d2 # Text-based diagramming tool.
@@ -88,6 +92,8 @@
         ${pkgs.dockerTools.shadowSetup}
         groupadd -r -g 1000 vscode
         useradd -r -g vscode -u 1000 vscode
+        # Required by Devcontainers.
+        echo "nix" > /etc/os-release
       '';
       copyToRoot = env;
       config = { Cmd = [ "/bin/bash" ]; };

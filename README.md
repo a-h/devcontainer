@@ -28,14 +28,23 @@ docker build --progress=plain -t devcontainer:latest .
 docker run --rm -it devcontainer:latest
 ```
 
-### build-nix
+### nix-build
 
 ```
 nix build .#docker
-```
-
-### import-nix-docker
-
-```
 docker load < result
+```
+
+### nix-run
+
+```
+docker run --rm -it devcontainer-nix:latest
+```
+
+### nix-test
+
+Use the https://code.visualstudio.com/docs/devcontainers/devcontainer-cli to run the local Devcontainer built with Nix.
+
+```
+devcontainer up --remove-existing-container --workspace-folder ./example-project
 ```
