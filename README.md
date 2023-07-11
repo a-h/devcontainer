@@ -32,13 +32,13 @@ docker run --rm -it devcontainer:latest
 
 ```
 nix build .#docker
-docker load < result
+podman load < result
 ```
 
 ### nix-run
 
 ```
-docker run --rm -it devcontainer-nix:latest
+podman run --rm -it devcontainer-nix:latest
 ```
 
 ### nix-test

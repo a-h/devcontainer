@@ -20,10 +20,10 @@ RUN apt-get update && apt-get install -y curl bzip2 adduser
 RUN echo -e "vscode:1:999\nvscode:1001:64535" > /etc/subuid;
 RUN echo -e "vscode:1:999\nvscode:1001:64535" > /etc/subgid;
 
-ARG _REPO_URL="https://raw.githubusercontent.com/containers/podman/main/contrib/podmanimage/stable"
-ADD $_REPO_URL/containers.conf /etc/containers/containers.conf
-ADD $_REPO_URL/podman-containers.conf /home/vscode/.config/containers/containers.conf
-ADD ./policy.json /etc/containers/policy.json
+# Files from https://raw.githubusercontent.com/containers/podman/main/contrib/podmanimage/stable
+ADD ./root/etc/containers/containers.conf /etc/containers/containers.conf
+ADD ./root/home/vscode/.config/containers/containers.conf /home/vscode/.config/containers/containers.conf
+ADD ./root/etc/containers/policy.json /etc/containers/policy.json
 
 RUN mkdir -p /home/vscode/.local/share/containers && \
     chown vscode:vscode -R /home/vscode && \
